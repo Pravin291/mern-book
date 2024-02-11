@@ -1,10 +1,11 @@
 import React from 'react'
-import Navbar from './Header.jsx'
+
+import Banner from '../home/Banner.jsx'
 
 export default function Home() {
   return (
     <div className='min-h-screen'>
-       
+       <Banner/>
     </div>
   )
 }
