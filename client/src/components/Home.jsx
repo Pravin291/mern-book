@@ -3,6 +3,7 @@ import React from 'react'
 import Banner from '../home/Banner.jsx'
 import BestSellerBooks from '../home/BestSellerBooks.jsx'
 import FavBooks from '../home/FavBooks.jsx'
+import PromoBanner from '../home/PromoBanner.jsx'
 
 export default function Home() {
   return (
@@ -10,6 +11,7 @@ export default function Home() {
        <Banner/>
        <BestSellerBooks/>
        <FavBooks/>
+       <PromoBanner/>
     </div>
   )
 }
