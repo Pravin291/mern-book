@@ -4,6 +4,7 @@ import Banner from '../home/Banner.jsx'
 import BestSellerBooks from '../home/BestSellerBooks.jsx'
 import FavBooks from '../home/FavBooks.jsx'
 import PromoBanner from '../home/PromoBanner.jsx'
+import OtherBooks from '../home/OtherBooks.jsx'
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
        <BestSellerBooks/>
        <FavBooks/>
        <PromoBanner/>
+       <OtherBooks/>
     </div>
   )
 }
