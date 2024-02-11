@@ -4,10 +4,12 @@ import About from './pages/About.jsx';
 import SignIn from './pages/SignIn.jsx';
 import SignUp from './pages/SignUp.jsx';
 import Shop from './pages/Shop.jsx';
-import NavBar from './components/NavBar.jsx';
+import Header from './components/Header.jsx';
+
+import MyFooter from './components/MyFooter.jsx';
 function App() {
   return <BrowserRouter>
-    <NavBar/>
+    <Header/>
     <Routes>
       <Route path='/' element={<Home/>}/>
       <Route path='/about' element={<About/>}/>
@@ -15,6 +17,7 @@ function App() {
       <Route path='/signup' element={<SignUp/>}/>
       <Route path='/shop' element={<Shop/>}/>
     </Routes>
+    <MyFooter/>
   </BrowserRouter>
 }
 
