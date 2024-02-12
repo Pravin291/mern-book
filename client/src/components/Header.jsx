@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaBarsStaggered, FaBlog, FaXmark } from "react-icons/fa6";
 import ".././App.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Alert, Avatar, Button, Dropdown } from "flowbite-react";
+import { signoutSuccess } from "../redux/user/UserSlice";
 
 export default function Header() {
+  const dispatch = useDispatch()
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
@@ -34,6 +36,7 @@ export default function Header() {
     { link: "Shop", path: "/shop" },
   ];
   
+  
   const handleSignout = async () => {
     try {
       const res = await fetch("/api/user/signout", {
@@ -42,12 +45,8 @@ export default function Header() {
       const data = await res.json();
       if (!res.ok) {
         console.log(data.message);
-      }
-      if(res.ok){
-          setShowAlert(true)
-          setTimeout(()=>{
-            setShowAlert(false)
-          },3000)
+      } else {
+        dispatch(signoutSuccess());
       }
     } catch (error) {
       console.log(error.message);

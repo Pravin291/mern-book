@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Sidebar } from "flowbite-react";
 import { BiBuoy } from "react-icons/bi";
+import { useDispatch } from "react-redux";
+import { signoutSuccess } from "../redux/user/UserSlice";
 import {
   HiArrowSmRight,
   HiChartPie,
@@ -15,6 +17,7 @@ import { Link, useLocation } from "react-router-dom";
 export default function DashSideBar() {
   const location = useLocation();
   const [tab, setTab] = useState();
+  const dispatch = useDispatch()
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
@@ -49,7 +52,7 @@ export default function DashSideBar() {
             Profile
           </Sidebar.Item>
           </Link>
-          <Sidebar.Item   icon={HiArrowSmRight} className="cursor-pointer"  >
+          <Sidebar.Item onClick={handleSignout}  icon={HiArrowSmRight} className="cursor-pointer"  >
             Sign Out
           </Sidebar.Item>
           <Sidebar.Item href="/dashboard/managebook" icon={HiInbox}>
