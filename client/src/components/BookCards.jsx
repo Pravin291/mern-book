@@ -42,7 +42,7 @@ export default function BookCards({ headline, books }) {
         >
           {books.map((book) => (
             <SwiperSlide key={book._id}>
-              <Link to={`/api/book/getsinglebook/${book._id}`}>
+              <Link to={`/singlebook/${book._id}`}>
                 <div
                   className=" relative bg-gray-200 p-8 rounded-lg text-center hover:bg-blue-300 hover:transition-all hover:shadow-md
                  hover:shadow-black/50"

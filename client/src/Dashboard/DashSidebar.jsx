@@ -1,32 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { Sidebar } from "flowbite-react";
-import { BiBuoy } from "react-icons/bi";
-import { useDispatch } from "react-redux";
-import { signoutSuccess } from "../redux/user/UserSlice";
-import {
-  HiArrowSmRight,
-  HiChartPie,
-  HiInbox,
-  HiOutlineCloudUpload,
-  HiShoppingBag,
-  HiTable,
-  HiUser,
-  HiViewBoards, 
-} from "react-icons/hi";
+import { Sidebar, SidebarItem } from "flowbite-react";
+import { HiAnnotation, HiArrowSmRight, HiBookOpen, HiBookmark, HiChartPie, HiCloudUpload, HiDocumentText, HiOutlineUserGroup, HiUser } from "react-icons/hi";
 import { Link, useLocation } from "react-router-dom";
-export default function DashSideBar() {
+import { signoutSuccess } from "../redux/user/UserSlice";
+import { useDispatch, useSelector } from "react-redux";
+export default function DashSidebar() {
   const location = useLocation();
-  const [tab, setTab] = useState();
-  const dispatch = useDispatch()
-
+  const dispatch = useDispatch();
+  const {currentUser} = useSelector(state=>state.user);
+  const [tab, setTab] = useState("");
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
     const tabFromUrl = urlParams.get("tab");
-    if(tabFromUrl){
-      setTab(tabFromUrl)
+    if (tabFromUrl) {
+      setTab(tabFromUrl);
     }
   }, [location.search]);
-
   const handleSignout = async () => {
     try {
       const res = await fetch("/api/user/signout", {
@@ -43,44 +32,54 @@ export default function DashSideBar() {
     }
   };
   return (
-    <Sidebar aria-label="Sidebar with content separator example" className="w-full md:w-56">
- 
+    <Sidebar className="w-full md:w-56">
       <Sidebar.Items>
-        <Sidebar.ItemGroup>
-          <Link to={'/dashboard?tab=profile'}>
-          <Sidebar.Item active={tab === 'profile'} icon = {HiUser} label={'user'} labelColor="dark" >
-            Profile
-          </Sidebar.Item>
+        <Sidebar.ItemGroup className="flex flex-col gap-1">
+      
+          <Link to="/dashboard?tab=profile">
+            <Sidebar.Item
+              active={tab === "profile"}
+              icon={HiUser}
+              label={currentUser.isAdmin ? 'Admin':'User'}
+              labelColor="dark"
+              as="div"
+            >
+              Profile
+            </Sidebar.Item>
           </Link>
-          <Sidebar.Item onClick={handleSignout}  icon={HiArrowSmRight} className="cursor-pointer"  >
+          {currentUser.isAdmin && (
+            <Link to={"/dashboard?tab=uploadbook"}>
+              <Sidebar.Item 
+                active={tab === "uploadbook"}
+                icon={HiCloudUpload}
+                as="div"
+              >
+                Upload Book
+              </Sidebar.Item>
+            </Link>
+          )}
+           
+           {currentUser.isAdmin && (
+            <>
+            <Link to={"/dashboard?tab=managebook"}>
+              <Sidebar.Item 
+                active={tab === "managebook"}
+                icon={HiBookmark}
+                as="div"
+              >
+                Manage Book
+              </Sidebar.Item>
+            </Link>
+            </>
+          )}
+         
+          <SidebarItem
+            onClick={handleSignout}
+            icon={HiArrowSmRight}
+            className="cursor-pointer"
+          >
             Sign Out
-          </Sidebar.Item>
-          <Sidebar.Item href="/dashboard/managebook" icon={HiInbox}>
-            Manage Books
-          </Sidebar.Item>
-          <Sidebar.Item href="#" icon={HiUser}>
-            Users
-          </Sidebar.Item>
-          <Sidebar.Item href="#" icon={HiShoppingBag}>
-            Products
-          </Sidebar.Item>
-          <Sidebar.Item href="/logout" icon={HiArrowSmRight}>
-            Sign Out
-          </Sidebar.Item>
-          <Sidebar.Item href="#" icon={HiTable}>
-            Sign Up
-          </Sidebar.Item>
-        </Sidebar.ItemGroup>
-        <Sidebar.ItemGroup>
-          <Sidebar.Item href="#" icon={HiChartPie}>
-            Upgrade to Pro
-          </Sidebar.Item>
-          <Sidebar.Item href="#" icon={HiViewBoards}>
-            Documentation
-          </Sidebar.Item>
-          <Sidebar.Item href="#" icon={BiBuoy}>
-            Help
-          </Sidebar.Item>
+          </SidebarItem>
         </Sidebar.ItemGroup>
       </Sidebar.Items>
     </Sidebar>

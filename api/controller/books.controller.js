@@ -2,9 +2,9 @@ import Book from "../models/books.model.js";
 import { errorHandler } from "../utils/error.js";
 
 export const bookPost = async (req, res, next) => {
-  // if (!req.user.isAdmin) {
-  //   return next(errorHandler(403, "You are not allowed to create a post"));
-  // }
+  if (!req.user.isAdmin) {
+    return next(errorHandler(403, "You are not allowed to create a post"));
+  }
   const {
     bookTitle,
     authorName,
@@ -99,10 +99,10 @@ export const getSingleBook = async (req, res) => {
     .catch((err) => res.status(500).json({ error: "Error fetching book" }));
 };
 
-export const updateBooks = async (req, res) => {
-  // if (!req.user.isAdmin || req.user.id !== req.params.userId) {
-  //   return next(errorHandler(403, "You are not allowed to update this post"));
-  // }
+export const updateBooks = async (req, res,next) => {
+  if (!req.user.isAdmin || req.user.id !== req.params.userId) {
+    return next(errorHandler(403, "You are not allowed to update this post"));
+  }
   try {
     const updateBook = await Book.findByIdAndUpdate(
       req.params.bookId,

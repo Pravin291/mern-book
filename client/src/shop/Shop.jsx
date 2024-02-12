@@ -19,6 +19,8 @@ export default function Shop() {
 
     fetchData();
   }, []);
+  
+
 
   return (
     <div className="mt-28 px-4 lg:px-24 ">
@@ -33,7 +35,7 @@ export default function Shop() {
               {book.bookDescription}
             </p>
 
-              <button className="bg-blue-700 font-semibold text-white py-2 rounded">
+              <button  className="bg-blue-700 font-semibold text-white py-2 rounded">
                 Buy Now
               </button>
         

@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import DashSideBar from "./DashSidebar";
-import UploadBook from "./UploadBook";
+
 import DashProfile from "./DashProfile";
+import UploadBook from "./UploadBook";
+import ManageBooks from "./Managebook";
+import EditBook from "./EditBook";
 
 export default function Dashboard() {
   const location = useLocation();
-  const [tab, setTab] = useState();
+  const [tab, setTab] = useState("");
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
@@ -20,5 +23,9 @@ export default function Dashboard() {
       <DashSideBar/>
     </div>
     {tab === 'profile' && <DashProfile/>}
+    {tab === 'uploadbook' && <UploadBook/>}
+    {tab === 'managebook' && <ManageBooks/>}
+    {tab === 'editbook' && <EditBook/>}
+    {tab === 'comments' && <ManageBooks/>}
   </div>;
 }

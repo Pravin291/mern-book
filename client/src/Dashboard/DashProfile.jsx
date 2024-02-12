@@ -126,7 +126,7 @@ export default function DashProfile() {
           Update
         </Button>
         {currentUser.isAdmin && (
-          <Link to={"/createbook"}>
+          <Link to={"/dashboard/uploadbook"}>
             <Button
               type="button"
               gradientDuoTone={"purpleToPink"}
