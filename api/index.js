@@ -5,6 +5,7 @@ import bookRouter from './routes/books.routes.js'
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import authRouter from './routes/auth.routes.js'
+import path from 'path'
 import cors from 'cors'
 
 dotenv.config();
@@ -19,6 +20,9 @@ mongoose.connect(process.env.MONGO_URL,{
   .catch((e)=> console.log(e))
 const port = process.env.port;
 
+
+const __dirname = path.resolve()
+
 app.get("/", (req, res) => {
   res.send("Its work!!!");
 });
@@ -26,6 +30,12 @@ app.get("/", (req, res) => {
 app.use('/api/auth/',authRouter)
 app.use("/api/user/", userRouter);
 app.use('/api/book/',bookRouter)
+
+app.use(express.static(path.join(__dirname,'/client/dist')))
+
+app.get('*',(req,res)=>{
+    res.sendFile(path.join(__dirname,'client','dist','index.html'))
+})
 
 app.listen(port, (req, res) => {
   console.log(`server is running at port ${process.env.PORT}`);
