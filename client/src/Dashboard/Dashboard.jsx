@@ -1,7 +1,12 @@
 import React from 'react'
+import SideBar from './Sidebar'
+
 
 export default function Dashboard() {
   return (
-    <div>Dashboard</div>
+    <div className='min-h-screen mt-16' >
+      <SideBar/>
+      
+    </div>
   )
 }
