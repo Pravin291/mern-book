@@ -3,13 +3,13 @@ import Home from "./components/Home.jsx";
 import About from "./pages/About.jsx";
 import SignIn from "./pages/SignIn.jsx";
 import SignUp from "./pages/SignUp.jsx";
-import Shop from "./pages/Shop.jsx";
 import Header from "./components/Header.jsx";
 
 import MyFooter from "./components/MyFooter.jsx";
 import PrivateRoute from "./components/PrivateRoute.jsx";
 import Dashboard from "./Dashboard/Dashboard.jsx";
 import UploadBook from "./Dashboard/UploadBook.jsx";
+import Shop from "./shop/Shop.jsx";
 function App() {
   return (
     <BrowserRouter>
