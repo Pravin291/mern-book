@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 import { FaBarsStaggered, FaBlog, FaXmark } from "react-icons/fa6";
 import ".././App.css";
 import { useSelector } from "react-redux";
-import { Avatar, Button, Dropdown } from "flowbite-react";
+import { Alert, Avatar, Button, Dropdown } from "flowbite-react";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
-
+  const [showAlert,setShowAlert] = useState(false)
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -33,7 +33,26 @@ export default function Header() {
     { link: "About", path: "/about" },
     { link: "Shop", path: "/shop" },
   ];
-
+  
+  const handleSignout = async () => {
+    try {
+      const res = await fetch("/api/user/signout", {
+        method: "GET",
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        console.log(data.message);
+      }
+      if(res.ok){
+          setShowAlert(true)
+          setTimeout(()=>{
+            setShowAlert(false)
+          },3000)
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   return (
     <header className="w-full bg-transparent fixed top-0 right-0 transition-all ease-in duration-300">
       <nav
@@ -92,7 +111,7 @@ export default function Header() {
                 <Dropdown.Item>Profile</Dropdown.Item>
               </Link>
               <Dropdown.Divider />
-              <Dropdown.Item >Sign Out</Dropdown.Item>
+              <Dropdown.Item onClick={handleSignout} >Sign Out</Dropdown.Item>
             </Dropdown>
           ) : (
             <div className="flex items-center">
@@ -120,6 +139,9 @@ export default function Header() {
             </Link>
           ))}
         </div>
+        {showAlert && <Alert className="mt-5" color={'success'}>
+           user signout Successfully
+          </Alert>}
       </nav>
     </header>
   );
