@@ -18,7 +18,8 @@ mongoose.connect(process.env.MONGO_URL,{
     dbName:'mern-book'
 }).then(()=>console.log('db connected'))
   .catch((e)=> console.log(e))
-const port = process.env.port;
+
+const port = process.env.PORT;
 
 
 const __dirname = path.resolve()
@@ -38,5 +39,5 @@ app.get('*',(req,res)=>{
 })
 
 app.listen(port, (req, res) => {
-  console.log(`server is running at port ${process.env.PORT}`);
+  console.log(`server is running at port ${port}`);
 });
