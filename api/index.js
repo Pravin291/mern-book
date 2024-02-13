@@ -24,9 +24,7 @@ const port = process.env.PORT;
 
 const __dirname = path.resolve()
 
-app.get("/", (req, res) => {
-  res.send("Its work!!!");
-});
+
 
 app.use('/api/auth/',authRouter)
 app.use("/api/user/", userRouter);
